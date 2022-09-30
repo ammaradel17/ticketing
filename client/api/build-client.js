@@ -6,7 +6,7 @@ const buildClient = ({ req }) => {
 
     return axios.create({
       baseURL:
-        'http://www.ticketing-app-demo.me/',
+        'http://www.ticketing-me.live/',
       headers: req.headers,
     });
   } else {
