@@ -1,0 +1,31 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+metadata:
+  name: cfg1
+build:
+  local:
+    push: false
+  artifacts:
+    - image: ammaradel98/ticketing-client
+      context: ../client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
+deploy:
+  kubectl:
+    manifests:
+      - ../infra/k8s/client-depl.yaml
+
+# ---
+
+# apiVersion: skaffold/vX
+# kind: Config
+# metadata:
+#   name: cfg2
+# build:
+#   # build definition
+# deploy:
+#   # deploy definition

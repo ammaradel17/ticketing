@@ -1,10 +1,10 @@
-apiVersion: skaffold/v2alpha3
+apiVersion: skaffold/v2beta11
 kind: Config
-deploy:
-  kubectl:
-    manifests:
-      - ./infra/k8s/*
-      - ./infra/k8s-dev/*
+metadata:
+  name: cfg2
+requires:
+  - configs: ["cfg1"]
+    path: ./tickets/skaffold.yaml 
 build:
   local:
     push: false
@@ -16,14 +16,6 @@ build:
       sync:
         manual:
           - src: 'src/**/*.ts'
-            dest: .
-    - image: ammaradel98/ticketing-client
-      context: client
-      docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: '**/*.js'
             dest: .
     - image: ammaradel98/tickets
       context: tickets
@@ -57,3 +49,19 @@ build:
         manual:
           - src: '**/*.js'
             dest: .
+
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/auth-depl.yaml
+      - ./infra/k8s/auth-mongo-depl.yaml
+      - ./infra/k8s/expiration-depl.yaml
+      - ./infra/k8s/expiration-redis-depl.yaml
+      - ./infra/k8s/nats-depl.yaml
+      - ./infra/k8s/orders-depl.yaml
+      - ./infra/k8s/orders-mongo-depl.yaml
+      - ./infra/k8s/payments-depl.yaml
+      - ./infra/k8s/payments-mongo-depl.yaml
+      - ./infra/k8s/tickets-depl.yaml
+      - ./infra/k8s/tickets-mongo-depl.yaml
+      - ./infra/k8s-dev/*

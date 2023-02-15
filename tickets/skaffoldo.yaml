@@ -1,0 +1,21 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+metadata:
+  name: cfg1
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/**/*
+      - ./infra/k8s/redis-depl.yaml
+      - ./infra/k8s/mongo-depl.yaml
+
+# ---
+
+# apiVersion: skaffold/vX
+# kind: Config
+# metadata:
+#   name: cfg2
+# build:
+#   # build definition
+# deploy:
+#   # deploy definition
